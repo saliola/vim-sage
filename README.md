@@ -1,4 +1,7 @@
-# A vim plugin for working with SageMath (sagemath.org)
+### A vim plugin for working with SageMath (sagemath.org)
+
+> Warning: this plugin depends on Tim Pope's
+> [vim-tbone](https://github.com/tpope/vim-tbone) plugin.
 
 Syntax highlighting:
 
