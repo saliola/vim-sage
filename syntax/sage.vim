@@ -113,10 +113,10 @@ syntax region sageDoctestValue
     \ contains=NONE
     \ contained
     \ containedin=rstLiteralBlock
-hi link sageDoctestValue Underlined
+hi link sageDoctestValue Underline
 
 syntax match sagePrompt "sage:" containedin=sageDoctest contained
-syntax match sagePrompt "....:" containedin=sageDoctest contained
+syntax match sagePrompt "\.\.\.\.:" containedin=sageDoctest contained
 hi link sagePrompt Prompt
 
 syntax case match
