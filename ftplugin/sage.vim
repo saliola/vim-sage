@@ -15,7 +15,7 @@
 "   - a single triple quote that begins a line ends a fold
 "   - a single triple quote ends a fold
 "   unless it follows an import statement.
-" - comments preceeding a class/def (with the same indentation) 
+" - comments preceeding a class/def (with the same indentation)
 "   are not folded
 " - fold import/include statements (include statements in cython)
 " - empty lines are linked to the previous fold (can be toggled),
@@ -28,7 +28,7 @@
 " - function definitions are *not* required to have a colon to allow
 "   for for multiline defs. (If you disagree, use the pattern
 "   '^\s*\(class\|def\)\s.*:' instead.)
-let s:defpat = '^\s*\(@\|\(class\|cdef\|cpdef\)\s.*:\|def\s\)'
+let s:defpat = '^\s*\(@\|\(class\|cdef\|cpdef\|def\)\s.*\)'
 
 " Pattern for matching docstrings
 let s:docstringbegin = "^\\s*[uUr]*[\"']\\{3}"
@@ -113,8 +113,8 @@ function! GetPythonFold(lnum)
         " - docstrings at the beginning of a file are folded
         if a:lnum == 1
             let foldlevel = 1
-        " - a triple quote following a class/def starts a fold
-        elseif getline(prevnonblank(a:lnum-1)) =~ s:defpat
+        " - a triple quote following a line ending with a colon starts a fold
+        elseif getline(prevnonblank(a:lnum-1)) =~ ":$"
             let foldlevel = "a1"
         " - a raw triple quote that begins a line starts a fold
         elseif line =~ "^[uUr][\"']\\{3}"
