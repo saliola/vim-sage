@@ -1,7 +1,7 @@
 ### A vim plugin for working with SageMath (sagemath.org)
 
 > Warning: some features of this plugin depend on
-> [tmux](https://tmux.github.io/) and Tim Pope's
+> [tmux](https://tmux.github.io/) and (perhaps) Tim Pope's
 > [vim-tbone](https://github.com/tpope/vim-tbone)
 > plugin, namely the commands that send text to tmux panes.
 
