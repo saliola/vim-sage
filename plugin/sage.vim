@@ -1,6 +1,7 @@
 " File: sage.vim
 " Author: Franco Saliola <saliola@gmail.com>
-" Description: Sage
+" Description: Some vim mappings to work with vim/sage in a tmux split;
+" the default pane most tmux commands is "right"
 
 " {{{ SageDoctestTwrite
 " Requires: Tim Pope's vim-tbone plugin
@@ -55,9 +56,10 @@ endif
 " Requires: Tim Pope's vim-tbone plugin
 
 function! SageAttachCommand(target)
-    execute ":Tmux send-keys -t " . tbone#pane_id(a:target) . " " . shellescape("%attach " . expand("%:p")) . " Enter"
+    let target = a:target == '' ? "right" : a:target
+    execute ":Tmux send-keys -t " . tbone#pane_id(target) . " " . shellescape("%attach " . expand("%:p")) . " Enter"
 endfunction
-command! -nargs=1 -complete=custom,tbone#complete_panes SageAttach :call SageAttachCommand("<args>")
+command! -nargs=? -complete=custom,tbone#complete_panes SageAttach :call SageAttachCommand("<args>")
 
 " }}} SageAttach
 " Run doctests of current function {{{
