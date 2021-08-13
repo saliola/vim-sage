@@ -4,7 +4,6 @@
 " the default pane most tmux commands is "right"
 
 " {{{ SageDoctestTwrite
-" Requires: Tim Pope's vim-tbone plugin
 
 if has("python3")
 python3 << EOL
@@ -45,7 +44,7 @@ def sage_doctest_tmux_writer(pane_id):
 
     if len(lines) == 1:
         subprocess.call(['tmux', 'send-keys', '-t', pane_id, doctest])
-    else:
+    elif len(lines) > 1:
         subprocess.call(['tmux', 'set-buffer', doctest])
         subprocess.call(['tmux', 'paste-buffer', '-p', '-t', pane_id])
         subprocess.call(['tmux', 'send-keys', '-t', pane_id, "Enter"])
@@ -54,25 +53,22 @@ def sage_doctest_tmux_writer(pane_id):
     vim.current.window.cursor = (min(lineindex + 1, len(vim.current.buffer)), 0)
 EOL
 
-command! -nargs=? -complete=custom,tbone#complete_panes SageDoctestTwrite
-    \ execute ":python3 sage_doctest_tmux_writer(\"<args>\")"
+command! -nargs=? SageDoctestTwrite execute ":python3 sage_doctest_tmux_writer(\"<args>\")"
 
 nnoremap <Leader>s :SageDoctestTwrite<CR>
 
 endif
 " }}}
 " SageAttach {{{
-" Requires: Tim Pope's vim-tbone plugin
 
 function! SageAttachCommand(target)
     let target = a:target == '' ? "right" : a:target
-    execute ":Tmux send-keys -t " . tbone#pane_id(target) . " " . shellescape("%attach " . expand("%:p")) . " Enter"
+    execute ":Tmux send-keys -t " . target . " " . shellescape("%attach " . expand("%:p")) . " Enter"
 endfunction
-command! -nargs=? -complete=custom,tbone#complete_panes SageAttach :call SageAttachCommand("<args>")
+command! -nargs=? SageAttach :call SageAttachCommand("<args>")
 
 " }}} SageAttach
 " Run doctests of current function {{{
-" Requires: Tim Pope's vim-tbone plugin
 
 " TODO: write this function
 
