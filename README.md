@@ -11,6 +11,12 @@ Syntax highlighting:
   docstrings use some RST highlighting
 - This is done by creating a syntax file in after
 
+Send sage doctest to a tmux pane (default: right):
+
+- `<Leader>s` copies the doctest that begins at the current line
+  and pastes it into the tmux pane at the right (if the current
+  line does not begin with `sage:`, then the line is ignored).
+
 Folding:
 
 - modified the standard python folding to fold documentation strings
