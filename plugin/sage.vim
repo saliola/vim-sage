@@ -49,6 +49,7 @@ command! -nargs=? -range -complete=custom,tbone#complete_panes SageDoctestTwrite
     \ execute ":python3 sage_doctest_tmux_writer(<line1>, <line2>, \"<args>\")"
 
 nnoremap <Leader>s :SageDoctestTwrite right<CR><CR>
+vnoremap <Leader>s :SageDoctestTwrite right<CR><CR>
 
 endif
 " }}}
