@@ -37,17 +37,17 @@ def sage_doctest_tmux_writer(line1, line2, pane_id):
     pane_id = vim.eval("tbone#pane_id('%s')" % pane_id)
 
     # send the commands via tmux
-    args = ['tmux', 'send-keys', '-t', pane_id]
     if len(vrange) == 0:
+        args = ['tmux', 'send-keys', '-t', pane_id]
         subprocess.call(args + ["Enter"])
     elif num_lines == 1:
+        args = ['tmux', 'send-keys', '-t', pane_id]
         subprocess.call(args + [vrange[0], "Enter"])
     else:
-        lines = []
-        for line in vrange:
-            lines.extend([line, "Enter"])
-        lines.append("Enter")
-        subprocess.call(args + lines)
+        lines = "\n".join(line for line in vrange) + "\n"
+        subprocess.call(['tmux', 'set-buffer', lines])
+        subprocess.call(['tmux', 'paste-buffer', '-p', '-t', pane_id])
+        subprocess.call(['tmux', 'send-keys', '-t', pane_id, "Enter"])
 
     # move cursor down the appropriate number of lines
     (row, col) = vim.current.window.cursor
